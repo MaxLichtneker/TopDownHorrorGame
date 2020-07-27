@@ -2,136 +2,144 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyState
+public class EnemyBasementAi :  Behaviours
 {
-    notAcitve,
-    movingDownStairs,
-    movingUpStairs,
-    isDownstairs,
-    checkingDoor
-}
-
-public enum DoorState
-{
-    closed,
-    open
-}
-
-public class EnemyBasementAi : MonoBehaviour
-{
-    [Header("State that the enemy is currently in")]
-    public EnemyState enemyState;
-
-    [Header("If the enemy opened or left the door closed")]
-    public DoorState doorState;
-
     [Header("The start and end point of the enemy")]
-    [SerializeField] private Transform startPoint;
-    [SerializeField] private Transform endPoint;
+    [SerializeField] private Transform startPoint = null;
+    [SerializeField] private Transform endPoint = null;
+
+    [Header("Timers and delays")]
+    [SerializeField] private float moveDownDelay = 0.0f;
+    [SerializeField] private float moveUpDelay = 0.0f;
+
+    private float moveUpMax = 5.0f;
+    private float moveUpMin = 0.5f;
+
+    private float moveDownMax = 5.0f;
+    private float moveDownMin = 0.5f;
+
+    private int randomCall = 1;
+
+    private int chanceToOpenDoor;
 
     [Header("AudioClips and Audio source of the enemy")]
-    [SerializeField] private AudioClip[] audioClips;
-    [SerializeField] private AudioSource enemyAudioSource;
-
-    [Header("the speed at which the enemy moves")]
-    [SerializeField] private float speed;
-    float speedPerTile;
+    [SerializeField] private AudioClip[] audioClips = null;
+    [SerializeField] private AudioSource enemyAudioSource = null;
 
     void Start()
     {
-        enemyState = EnemyState.notAcitve;
+        gameObject.transform.position = startPoint.position;
+
+        moveDownDelay = Random.Range(7.5f, 10.0f);
+
     }
 
     void Update()
     {
-        if(enemyState == EnemyState.notAcitve && enemyState != EnemyState.isDownstairs)
+        //starts the delay for when the player is upstairs
+        if (EnemyBehaviour == EnemyBehaviour.isUpstairs)
         {
-            StartCoroutine(DelayDown(0));
+            DelayDown();
         }
 
-        if(enemyState == EnemyState.isDownstairs && enemyState != EnemyState.notAcitve)
+        //starts the delay for when the player is Downstairs
+        if (EnemyBehaviour == EnemyBehaviour.isDownstairs)
         {
-            ChanceToOpenDoorCheck();
-            StartCoroutine(DelayUp(0));
+            CheckOnPlayer();
         }
 
-        if(enemyState == EnemyState.checkingDoor && doorState == DoorState.open)
+        //checks if the the timer is equal to 0 or under and if the position is the same as the starting position
+        if (moveDownDelay <= 0.0f && gameObject.transform.position == startPoint.position)
         {
-            StartCoroutine(DoorDelay(0));
+            MoveEnemyDownStairs();
+
+            moveDownDelay = moveDownMax;
+            randomCall = 1;
+        }
+        //checks if the the timer is equal to 0 or under and if the position is the same as the end position
+        if (moveUpDelay <= 0.0f && gameObject.transform.position == endPoint.position)
+        {
+            MoveEnemyUpstairs();
+
+            moveUpDelay = moveUpMax;
+            randomCall = 1;
         }
     }
 
     //moves the enemy downstairs
     private void MoveEnemyDownStairs()
     {
-        speedPerTile = speed * Time.deltaTime;
-
-        enemyState = EnemyState.movingDownStairs;
-
-        gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, endPoint.position, speedPerTile);
-
-        if(gameObject.transform.position.x == endPoint.position.x)
+        if(EnemyBehaviour == EnemyBehaviour.isUpstairs)
         {
-            enemyState = EnemyState.isDownstairs;
+            gameObject.transform.position = endPoint.position;
+
+            EnemyBehaviour = EnemyBehaviour.isDownstairs;
         }
     }
 
     //moves the enemy upstairs
     private void MoveEnemyUpstairs()
-    {
-        speedPerTile = speed * Time.deltaTime;
-
-        enemyState = EnemyState.movingUpStairs;
-
-        if(enemyState == EnemyState.movingUpStairs)
+    { 
+        if(EnemyBehaviour == EnemyBehaviour.isDownstairs)
         {
-            gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, startPoint.position, speedPerTile);
+            gameObject.transform.position = startPoint.position;
+
+            basementDoor = BasementDoor.closed;
+            EnemyBehaviour = EnemyBehaviour.isUpstairs;
         }
-
-        if(gameObject.transform.position.x == startPoint.position.x)
-        {
-            enemyState = EnemyState.notAcitve;
-        }
-    }
-
-    //checks to see if the enemy will open the door or not
-    private void ChanceToOpenDoorCheck()
-    {
-        int chance;
-        chance = Random.Range(0, 5);
-
-            if(chance == 3)
-            {
-                enemyState = EnemyState.checkingDoor;
-                doorState = DoorState.open;
-            }
     }
 
     //randomly delays how long the enemy will wait to go upstairs
-    private IEnumerator DelayUp(float time)
+    private void DelayUp()
     {
-        time = Random.Range(3f, 7f);
-        yield return new WaitForSeconds(time);
+        if(randomCall == 1)
+        {
+            moveUpDelay = Random.Range(5.0f, 10.0f);
 
-        MoveEnemyUpstairs();
+            randomCall = 0;
+        }
+
+        moveUpDelay = moveUpDelay - 1 * Time.deltaTime;
+
     }
 
     //randomly delays how long the enemy will wait to go downstairs
-    private IEnumerator DelayDown(float time)
+    private void DelayDown()
     {
-        time = Random.Range(5f, 10f);
-        yield return new WaitForSeconds(time);
+        if(randomCall == 1)
+        {
+            moveDownDelay = Random.Range(7.5f, 10.0f);
+            randomCall = 0;
+        }
 
-        MoveEnemyDownStairs();
+        moveDownDelay = moveDownDelay -1 * Time.deltaTime;
     }
 
-    private IEnumerator DoorDelay(float time)
+    //gives the enemy a chance to open the door and check on the player
+    private void CheckOnPlayer()
     {
-        time = Random.Range(3f, 6f);
-        yield return new WaitForSeconds(time);
+        if(randomCall == 1)
+        {
+            chanceToOpenDoor = Random.Range(1, 3);
+            randomCall = 0;
+        }
 
-        doorState = DoorState.closed;
-        MoveEnemyUpstairs();
+        OpenOrClosed();
+    }
+
+    private void OpenOrClosed()
+    {
+        if(chanceToOpenDoor <= 1)
+        {
+            basementDoor = BasementDoor.closed;
+
+            DelayUp();
+        }
+        else if(chanceToOpenDoor == 2)
+        {
+            basementDoor = BasementDoor.open;
+            DelayUp();
+        }
     }
 
 }

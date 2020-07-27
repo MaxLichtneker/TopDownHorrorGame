@@ -939,15 +939,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d255779788e938645ae6501a33c112ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyState: 0
-  doorState: 0
+  EnemyBehaviour: 3
+  playerBehaviour: 0
+  basementDoor: 0
   startPoint: {fileID: 314369464}
   endPoint: {fileID: 902942038}
+  moveDownDelay: 0
+  moveUpDelay: 0
   audioClips:
   - {fileID: 8300000, guid: a60f30ab07556654c92afa36bc473359, type: 3}
   - {fileID: 8300000, guid: 23ada0dec09d63d46b258189d062128f, type: 3}
   enemyAudioSource: {fileID: 1095165078}
-  speed: 10
 --- !u!4 &990777718
 Transform:
   m_ObjectHideFlags: 0
@@ -2255,6 +2257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1926229784}
+  - component: {fileID: 1926229785}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2276,6 +2279,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1926229785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926229783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 740107d980671f640820da57a52f719c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyBehaviour: 0
+  playerBehaviour: 0
+  basementDoor: 0
 --- !u!1 &1990768418
 GameObject:
   m_ObjectHideFlags: 0
