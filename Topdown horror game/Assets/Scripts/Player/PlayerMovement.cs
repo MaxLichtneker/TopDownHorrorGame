@@ -18,6 +18,9 @@ public enum PlayerDirection
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("direction the player is walking in")]
+    public PlayerDirection playerDirection;
+
     public float xAxis;
     public float yAxis;
 
@@ -28,7 +31,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Animator Controller of the player")]
     [SerializeField] private Animator animator;
-
 
     private void FixedUpdate()
     {
@@ -43,6 +45,11 @@ public class PlayerMovement : MonoBehaviour
     {
         xAxis = Input.GetAxis("Horizontal");
         yAxis = Input.GetAxis("Vertical");
+    }
+
+    private void SetSpeed()
+    {
+
     }
 
     private void SetAnimatorValues()

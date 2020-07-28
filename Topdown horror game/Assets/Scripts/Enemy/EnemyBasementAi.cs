@@ -2,8 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBasementAi :  Behaviours
+public enum EnemyBehaviour
 {
+    notAcitve,
+    movingDownStairs,
+    movingUpStairs,
+    isUpstairs,
+    isDownstairs,
+    checkingDoor
+}
+
+public enum BasementDoor
+{
+    closed,
+    open
+}
+
+public class EnemyBasementAi :  MonoBehaviour
+{
+    [Header("keeps track of the behaviour of the enemy")]
+    public EnemyBehaviour EnemyBehaviour;
+
+    [Header("tracks if the door is open or closed")]
+    public BasementDoor basementDoor;
+
     [Header("The start and end point of the enemy")]
     [SerializeField] private Transform startPoint = null;
     [SerializeField] private Transform endPoint = null;
@@ -11,6 +33,18 @@ public class EnemyBasementAi :  Behaviours
     [Header("Timers and delays")]
     [SerializeField] private float moveDownDelay = 0.0f;
     [SerializeField] private float moveUpDelay = 0.0f;
+
+    [Header("Set the value of how long the enemy takes to walk down the stairs")]
+    [Range(0, 15)]
+    [SerializeField] private float minValueDownstairs = 0.0f;
+    [Range(0, 15)]
+    [SerializeField] private float maxValueDownstairs = 0.0f;
+
+    [Header("Set the value of how long the enemy takes to walk up the stairs")]
+    [Range(0, 15)]
+    [SerializeField] private float minValueUpstairs = 0.0f;
+    [Range(0, 15)]
+    [SerializeField] private float maxValueUpstairs = 0.0f;
 
     private float moveUpMax = 5.0f;
     private float moveUpMin = 0.5f;
@@ -31,11 +65,13 @@ public class EnemyBasementAi :  Behaviours
         gameObject.transform.position = startPoint.position;
 
         moveDownDelay = Random.Range(7.5f, 10.0f);
-
     }
 
     void Update()
     {
+        //plays audio of the enemy
+        AudioManager();
+
         //starts the delay for when the player is upstairs
         if (EnemyBehaviour == EnemyBehaviour.isUpstairs)
         {
@@ -56,6 +92,7 @@ public class EnemyBasementAi :  Behaviours
             moveDownDelay = moveDownMax;
             randomCall = 1;
         }
+
         //checks if the the timer is equal to 0 or under and if the position is the same as the end position
         if (moveUpDelay <= 0.0f && gameObject.transform.position == endPoint.position)
         {
@@ -94,7 +131,7 @@ public class EnemyBasementAi :  Behaviours
     {
         if(randomCall == 1)
         {
-            moveUpDelay = Random.Range(5.0f, 10.0f);
+            moveUpDelay = Random.Range(minValueUpstairs, maxValueUpstairs);
 
             randomCall = 0;
         }
@@ -108,7 +145,7 @@ public class EnemyBasementAi :  Behaviours
     {
         if(randomCall == 1)
         {
-            moveDownDelay = Random.Range(7.5f, 10.0f);
+            moveDownDelay = Random.Range(minValueDownstairs, maxValueDownstairs);
             randomCall = 0;
         }
 
@@ -140,6 +177,11 @@ public class EnemyBasementAi :  Behaviours
             basementDoor = BasementDoor.open;
             DelayUp();
         }
+    }
+
+    private void AudioManager()
+    {
+
     }
 
 }
