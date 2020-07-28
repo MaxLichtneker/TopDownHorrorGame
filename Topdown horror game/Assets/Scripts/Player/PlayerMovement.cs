@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     {
         GetAxis();
 
-        if(SceneManager.sceneCount == 2)
+        if(SceneManager.sceneCount == 1)
         {
             SetSpeed();
         }

@@ -16,20 +16,24 @@ public class GetOutOfChair : MonoBehaviour
     [Header("GameObject of the chair the player sits in")]
     [SerializeField] private GameObject chair;
 
-    public bool Sitting = true;
+    //checks if the player is colliding with the chair or not
+    private bool colliding;
 
     void Update()
     {
+        //if the player presses space and the player is sitting then the player will get out of the chair
         if (Input.GetKeyDown(KeyCode.Space) && playerBehaviour == PlayerBehaviour.sitting)
         {
             Walk();
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && playerBehaviour == PlayerBehaviour.standing)
+        
+        //if the player presses space while he is colliding with the chair he wil get back in the chair
+        if (Input.GetKeyDown(KeyCode.Space) && colliding == true)
         {
             GetBackInChair();
         }
     }
-    
+
     private void Walk()
     {
         chair.transform.parent = null;
@@ -47,15 +51,11 @@ public class GetOutOfChair : MonoBehaviour
     {
         if (collision.CompareTag("chair"))
         {
-
-            if(Input.GetKeyDown(KeyCode.Space) && playerBehaviour == PlayerBehaviour.standing)
-            {
-                playerBehaviour = PlayerBehaviour.sitting;
-            }
-            else
-            {
-                playerBehaviour = PlayerBehaviour.standing;
-            }
-        }           
+            colliding = true;
+        }
+        else
+        {
+            colliding = false;
+        }
     }
 }
