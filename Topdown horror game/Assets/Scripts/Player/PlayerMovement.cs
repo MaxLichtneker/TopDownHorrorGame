@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum PlayerState
 {
@@ -26,15 +27,27 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 speed;
 
+    private GetOutOfChair getOutOfChair;
+
     [Header("Speed the player will go at")]
     [SerializeField] private float tileSpeed;
 
     [Header("Animator Controller of the player")]
     [SerializeField] private Animator animator;
 
+    private void Start()
+    {
+        getOutOfChair = FindObjectOfType<GetOutOfChair>();
+    }
+
     private void FixedUpdate()
     {
         GetAxis();
+
+        if(SceneManager.sceneCount == 2)
+        {
+            SetSpeed();
+        }
 
         speed = new Vector3(xAxis * tileSpeed, yAxis * tileSpeed);
 
@@ -49,7 +62,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetSpeed()
     {
-
+        if(getOutOfChair.playerBehaviour == PlayerBehaviour.sitting)
+        {
+            tileSpeed = 1.0f;
+        }
+        if(getOutOfChair.playerBehaviour == PlayerBehaviour.standing)
+        {
+            tileSpeed = 5.0f;
+        }
     }
 
     private void SetAnimatorValues()
