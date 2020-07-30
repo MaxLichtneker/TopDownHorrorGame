@@ -14,5 +14,17 @@ public class Item : MonoBehaviour
     public int amount = 0;
 
     [Header("sprite of the item")]
-    public Sprite itemSprite;
+    public Sprite Sprite;
+
+    public void Items(string itemName, string itemDescritption, int itemAmount, Sprite itemSprite)
+    {
+        itemName = name;
+
+        itemDescritption = description;
+
+        itemAmount = amount;
+
+        itemSprite = Sprite;
+    }
+
 }
