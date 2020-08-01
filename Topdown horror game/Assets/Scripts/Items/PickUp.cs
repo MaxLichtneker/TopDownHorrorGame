@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class PickUp : MonoBehaviour
 {
     private Inventory inventory;
@@ -11,7 +12,12 @@ public class PickUp : MonoBehaviour
     void Start()
     {
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
-        item = GameObject.FindGameObjectWithTag("item").GetComponent<Item>();
+
+        item = this.gameObject.GetComponent<Item>();
+    }
+
+    private void Update()
+    {
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -20,17 +26,27 @@ public class PickUp : MonoBehaviour
         {
             for (int i = 0; i < inventory.slots.Length; i++)
             {
-                if(inventory.isFull[i] == false)
+                if(inventory.isFull[i] == true && inventory.slots[i].GetComponent<Image>().sprite == item.Sprite)
                 {
-                    inventory.slots[i].GetComponent<Image>().sprite = item.Sprite;
-                    item.amount++;
-                    inventory.isFull[i] = true;
+                    inventory.itemCounter++;
+                    inventory.slots[i].GetComponentInChildren<TextMeshProUGUI>().text = inventory.itemCounter.ToString();
                     Destroy(gameObject);
-
-                    break;
+                }
+                else if(inventory.isFull[i] == false)
+                {
+                    if(inventory.slots[i].GetComponent<Image>().sprite != item.Sprite)
+                    {
+                        if(inventory.itemCounter <= 1)
+                        {
+                            inventory.slots[i].GetComponent<Image>().sprite = item.Sprite;
+                            inventory.slots[i].GetComponentInChildren<TextMeshProUGUI>().text = item.amount.ToString();
+                            inventory.isFull[i] = true;
+                            Destroy(gameObject);
+                        }
+                        break;
+                    }
                 }
             }
         }
     }
-
 }
