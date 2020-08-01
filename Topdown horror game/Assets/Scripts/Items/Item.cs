@@ -16,15 +16,4 @@ public class Item : MonoBehaviour
     [Header("sprite of the item")]
     public Sprite Sprite;
 
-    public void Items(string itemName, string itemDescritption, int itemAmount, Sprite itemSprite)
-    {
-        itemName = name;
-
-        itemDescritption = description;
-
-        itemAmount = amount;
-
-        itemSprite = Sprite;
-    }
-
 }

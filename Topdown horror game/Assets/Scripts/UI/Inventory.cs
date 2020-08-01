@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
+    public bool[] isFull;
+
     [Header("the amount of slots the inventory has")]
     public Image[] slots;
+
 
 
     private void Start()
