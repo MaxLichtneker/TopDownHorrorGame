@@ -431,7 +431,14 @@ MonoBehaviour:
   - {fileID: 1924742784}
   - {fileID: 510503232}
   - {fileID: 1563756813}
-  itemCounter: 0
+  counters:
+  - {fileID: 982237359}
+  - {fileID: 1100432594}
+  - {fileID: 1311932145}
+  - {fileID: 1771399500}
+  - {fileID: 369823876}
+  itemCounter: 0000000000000000000000000000000000000000
+  items: []
 --- !u!1 &281858278
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,7 +749,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &369823877
 RectTransform:
   m_ObjectHideFlags: 0
@@ -962,10 +969,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b2d25c15b6f1341be16fd5df69097a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: screwdriver
-  description: something
-  amount: 1
-  Sprite: {fileID: 21300000, guid: 4736f369d2b7b714a85fb68806d496cb, type: 3}
+  itemName: screwdriver
+  itemDescription: screws screws
+  itemAmount: 1
+  itemSprite: {fileID: 21300000, guid: 4736f369d2b7b714a85fb68806d496cb, type: 3}
   stackable: 1
 --- !u!212 &402806705
 SpriteRenderer:
@@ -1709,10 +1716,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b2d25c15b6f1341be16fd5df69097a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: screw
-  description: used to screw door handel back on
-  amount: 1
-  Sprite: {fileID: 21300000, guid: 1efa21af6c2764348a9c6650f3592895, type: 3}
+  itemName: screw
+  itemDescription: 'to screw things '
+  itemAmount: 1
+  itemSprite: {fileID: 21300000, guid: 1efa21af6c2764348a9c6650f3592895, type: 3}
   stackable: 1
 --- !u!61 &777226110
 BoxCollider2D:
@@ -1978,10 +1985,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b2d25c15b6f1341be16fd5df69097a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: screw
-  description: used to screw door handel back on
-  amount: 1
-  Sprite: {fileID: 21300000, guid: 1efa21af6c2764348a9c6650f3592895, type: 3}
+  itemName: screw
+  itemDescription: 'to screw things '
+  itemAmount: 1
+  itemSprite: {fileID: 21300000, guid: 1efa21af6c2764348a9c6650f3592895, type: 3}
   stackable: 1
 --- !u!61 &844032576
 BoxCollider2D:
@@ -2410,7 +2417,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &982237360
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2828,7 +2835,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1100432595
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3397,10 +3404,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b2d25c15b6f1341be16fd5df69097a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: screw
-  description: used to screw door handel back on
-  amount: 1
-  Sprite: {fileID: 21300000, guid: 1efa21af6c2764348a9c6650f3592895, type: 3}
+  itemName: screw
+  itemDescription: 'to screw things '
+  itemAmount: 1
+  itemSprite: {fileID: 21300000, guid: 1efa21af6c2764348a9c6650f3592895, type: 3}
   stackable: 1
 --- !u!61 &1203873609
 BoxCollider2D:
@@ -3689,7 +3696,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1311932146
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4198,10 +4205,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b2d25c15b6f1341be16fd5df69097a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: screw
-  description: used to screw door handel back on
-  amount: 1
-  Sprite: {fileID: 21300000, guid: 1efa21af6c2764348a9c6650f3592895, type: 3}
+  itemName: screw
+  itemDescription: 'to screw things '
+  itemAmount: 1
+  itemSprite: {fileID: 21300000, guid: 1efa21af6c2764348a9c6650f3592895, type: 3}
   stackable: 1
 --- !u!61 &1492868709
 BoxCollider2D:
@@ -4802,7 +4809,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1771399501
 RectTransform:
   m_ObjectHideFlags: 0
