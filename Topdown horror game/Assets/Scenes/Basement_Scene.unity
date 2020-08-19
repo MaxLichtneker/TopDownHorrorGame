@@ -2594,9 +2594,9 @@ MonoBehaviour:
   moveDownDelay: 0
   moveUpDelay: 0
   minValueDownstairs: 7.5
-  maxValueDownstairs: 10
-  minValueUpstairs: 5
-  maxValueUpstairs: 10
+  maxValueDownstairs: 17
+  minValueUpstairs: 7.5
+  maxValueUpstairs: 15
   audioClips:
   - {fileID: 8300000, guid: a60f30ab07556654c92afa36bc473359, type: 3}
   - {fileID: 8300000, guid: 23ada0dec09d63d46b258189d062128f, type: 3}

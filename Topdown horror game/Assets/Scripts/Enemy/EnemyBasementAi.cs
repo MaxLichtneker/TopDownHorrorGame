@@ -35,9 +35,9 @@ public class EnemyBasementAi :  MonoBehaviour
     [SerializeField] private float moveUpDelay = 0.0f;
 
     [Header("Set the value of how long the enemy takes to walk down the stairs")]
-    [Range(0, 15)]
+    [Range(0, 25)]
     [SerializeField] private float minValueDownstairs = 0.0f;
-    [Range(0, 15)]
+    [Range(0, 25)]
     [SerializeField] private float maxValueDownstairs = 0.0f;
 
     [Header("Set the value of how long the enemy takes to walk up the stairs")]
@@ -53,6 +53,8 @@ public class EnemyBasementAi :  MonoBehaviour
     private float moveDownMin = 0.5f;
 
     private int randomCall = 1;
+
+    private int audioChance = 1;
 
     private int chanceToOpenDoor;
 
@@ -90,7 +92,9 @@ public class EnemyBasementAi :  MonoBehaviour
             MoveEnemyDownStairs();
 
             moveDownDelay = moveDownMax;
+
             randomCall = 1;
+            audioChance = 1;
         }
 
         //checks if the the timer is equal to 0 or under and if the position is the same as the end position
@@ -99,7 +103,9 @@ public class EnemyBasementAi :  MonoBehaviour
             MoveEnemyUpstairs();
 
             moveUpDelay = moveUpMax;
+
             randomCall = 1;
+            audioChance = 1;
         }
     }
 
@@ -146,6 +152,7 @@ public class EnemyBasementAi :  MonoBehaviour
         if(randomCall == 1)
         {
             moveDownDelay = Random.Range(minValueDownstairs, maxValueDownstairs);
+
             randomCall = 0;
         }
 
@@ -158,7 +165,6 @@ public class EnemyBasementAi :  MonoBehaviour
         if(randomCall == 1)
         {
             chanceToOpenDoor = Random.Range(1, 3);
-            randomCall = 0;
         }
 
         OpenOrClosed();
@@ -175,13 +181,34 @@ public class EnemyBasementAi :  MonoBehaviour
         else if(chanceToOpenDoor == 2)
         {
             basementDoor = BasementDoor.open;
+
             DelayUp();
         }
     }
 
     private void AudioManager()
     {
+        if(moveDownDelay >= 7.5f && audioChance == 1)
+        {
+            enemyAudioSource.clip = audioClips[0];
 
+            if (!enemyAudioSource.isPlaying)
+            {
+                enemyAudioSource.Play();
+                audioChance = 0;
+            }
+        }
+
+        if (moveUpDelay >= 7.5f && audioChance == 1)
+        {
+            enemyAudioSource.clip = audioClips[1];
+
+            if (!enemyAudioSource.isPlaying)
+            {
+                enemyAudioSource.Play();
+                audioChance = 0;
+            }
+        }
     }
 
 }
