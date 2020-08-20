@@ -71,9 +71,6 @@ public class EnemyBasementAi :  MonoBehaviour
 
     void Update()
     {
-        //plays audio of the enemy
-        AudioManager();
-
         //starts the delay for when the player is upstairs
         if (EnemyBehaviour == EnemyBehaviour.isUpstairs)
         {
@@ -114,17 +111,33 @@ public class EnemyBasementAi :  MonoBehaviour
     {
         if(EnemyBehaviour == EnemyBehaviour.isUpstairs)
         {
+            enemyAudioSource.clip = audioClips[0];
+
+            if (!enemyAudioSource.isPlaying)
+            {
+                enemyAudioSource.Play();
+                audioChance = 0;
+            }
+
             gameObject.transform.position = endPoint.position;
 
             EnemyBehaviour = EnemyBehaviour.isDownstairs;
         }
     }
 
-    //moves the enemy upstairs
+    //moves the enemy upstairs and plays the audio for going upstairs
     private void MoveEnemyUpstairs()
     { 
         if(EnemyBehaviour == EnemyBehaviour.isDownstairs)
         {
+            enemyAudioSource.clip = audioClips[1];
+
+            if (!enemyAudioSource.isPlaying)
+            {
+                enemyAudioSource.Play();
+                audioChance = 0;
+            }
+
             gameObject.transform.position = startPoint.position;
 
             basementDoor = BasementDoor.closed;
@@ -149,25 +162,31 @@ public class EnemyBasementAi :  MonoBehaviour
     //randomly delays how long the enemy will wait to go downstairs
     private void DelayDown()
     {
-        if(randomCall == 1)
+        if (!enemyAudioSource.isPlaying)
         {
-            moveDownDelay = Random.Range(minValueDownstairs, maxValueDownstairs);
+            if (randomCall == 1)
+            {
+                moveDownDelay = Random.Range(minValueDownstairs, maxValueDownstairs);
 
-            randomCall = 0;
+                randomCall = 0;
+            }
+
+            moveDownDelay = moveDownDelay - 1 * Time.deltaTime;
         }
-
-        moveDownDelay = moveDownDelay -1 * Time.deltaTime;
     }
 
-    //gives the enemy a chance to open the door and check on the player
+    //gives the enemy a chance to open the door and check on the player and plays the audio first
     private void CheckOnPlayer()
     {
-        if(randomCall == 1)
+        if (!enemyAudioSource.isPlaying)
         {
-            chanceToOpenDoor = Random.Range(1, 3);
-        }
+            if (randomCall == 1)
+            {
+                chanceToOpenDoor = Random.Range(1, 3);
+            }
 
-        OpenOrClosed();
+            OpenOrClosed();
+        }
     }
 
     private void OpenOrClosed()
@@ -185,30 +204,4 @@ public class EnemyBasementAi :  MonoBehaviour
             DelayUp();
         }
     }
-
-    private void AudioManager()
-    {
-        if(moveDownDelay >= 7.5f && audioChance == 1)
-        {
-            enemyAudioSource.clip = audioClips[0];
-
-            if (!enemyAudioSource.isPlaying)
-            {
-                enemyAudioSource.Play();
-                audioChance = 0;
-            }
-        }
-
-        if (moveUpDelay >= 7.5f && audioChance == 1)
-        {
-            enemyAudioSource.clip = audioClips[1];
-
-            if (!enemyAudioSource.isPlaying)
-            {
-                enemyAudioSource.Play();
-                audioChance = 0;
-            }
-        }
-    }
-
 }
