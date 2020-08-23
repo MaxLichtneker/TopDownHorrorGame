@@ -40,6 +40,7 @@ public class PickUp : MonoBehaviour
                         {
                             inventory.counters[i].SetActive(true);
 
+                            inventory.names[i] = item.itemName;
                             inventory.itemCounter[i] = item.itemAmount;
 
                             inventory.slots[i].GetComponent<Image>().sprite = item.itemSprite;

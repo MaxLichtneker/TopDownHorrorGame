@@ -10,6 +10,7 @@ TagManager:
   - Down
   - chair
   - item
+  - door
   layers:
   - Default
   - TransparentFX

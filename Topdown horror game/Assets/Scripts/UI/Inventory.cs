@@ -13,13 +13,11 @@ public class Inventory : MonoBehaviour
     [Header("Amount of counters in the inventory")]
     public GameObject[] counters;
 
+    [Header("names of the pickedUp objects")]
+    public string[] names;
+
     [Header("keeps track of how many items are in each slot")]
     public int[] itemCounter;
-
-    public List<Item> items = new List<Item>();
-
-
-
 
 }
 
