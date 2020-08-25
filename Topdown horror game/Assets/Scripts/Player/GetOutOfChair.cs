@@ -17,7 +17,7 @@ public class GetOutOfChair : MonoBehaviour
     [SerializeField] private GameObject chair;
 
     //checks if the player is colliding with the chair or not
-    private bool colliding;
+    [SerializeField]private bool colliding;
 
     void Update()
     {
@@ -38,6 +38,7 @@ public class GetOutOfChair : MonoBehaviour
     {
         chair.transform.parent = null;
         playerBehaviour = PlayerBehaviour.standing;
+        colliding = false;
     }
 
     private void GetBackInChair()
