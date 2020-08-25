@@ -19,6 +19,7 @@ public class Inventory : MonoBehaviour
     [Header("keeps track of how many items are in each slot")]
     public int[] itemCounter;
 
+
 }
 
 

@@ -14,9 +14,6 @@ public class FillCircle : MonoBehaviour
     [Header("all of the screws to the door")]
     [SerializeField] private GameObject[] screws;
 
-    [Header("replacement screw for when the screw is done spinning")]
-    [SerializeField] private GameObject replacementScrew;
-
     private Stack<GameObject> screwStack = new Stack<GameObject>();
 
     private float value = 0.0f;
@@ -62,18 +59,13 @@ public class FillCircle : MonoBehaviour
         }
     }
 
+    //activates the screw for the next hole
     private void ActivateScrew()
     {
         if(fillImage.fillAmount >= 1.0f)
         {
             if(screwStack != null)
             {
-                for (int i = 0; i < screws.Length; i++)
-                {
-                    Instantiate(replacementScrew, transform.position,transform.rotation);
-                    screws[i].SetActive(false);
-                }
-
                 screwStack.Pop().SetActive(true);
                 amountOfTurns--;
                 fillImage.fillAmount = 0.0f;
@@ -82,14 +74,25 @@ public class FillCircle : MonoBehaviour
         }
     }
 
+    //turns the screw that is active
     private void TurnScrew()
     {
-        for (int i = 0; i < screws.Length; i++)
+
+        if (screwStack.Count == 4)
+        { 
+            screws[0].transform.Rotate(0, 0, -120 * Time.deltaTime);
+        }
+        if(screwStack.Count == 3)
         {
-            if(screws[i] != null)
-            {
-                screws[i].transform.Rotate(0, 0, -120 * Time.deltaTime);
-            }
+            screws[3].transform.Rotate(0, 0, -120 * Time.deltaTime);
+        }
+        if(screwStack.Count == 2)
+        {
+            screws[2].transform.Rotate(0, 0, -120 * Time.deltaTime);
+        }
+        if (screwStack.Count == 1)
+        {
+            screws[1].transform.Rotate(0, 0, -120 * Time.deltaTime);
         }
     }
 
