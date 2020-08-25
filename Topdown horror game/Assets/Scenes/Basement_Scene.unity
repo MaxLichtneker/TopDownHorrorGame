@@ -700,7 +700,7 @@ GameObject:
   - component: {fileID: 125072541}
   - component: {fileID: 125072540}
   m_Layer: 5
-  m_Name: screw1
+  m_Name: screw0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -895,7 +895,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &155686228
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3322,7 +3322,7 @@ GameObject:
   - component: {fileID: 576553946}
   - component: {fileID: 576553945}
   m_Layer: 5
-  m_Name: screw4
+  m_Name: screw3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4381,7 +4381,7 @@ GameObject:
   - component: {fileID: 800863339}
   - component: {fileID: 800863338}
   m_Layer: 5
-  m_Name: screw2
+  m_Name: screw1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5389,7 +5389,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &959354290
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5679,7 +5679,7 @@ GameObject:
   - component: {fileID: 991716666}
   - component: {fileID: 991716665}
   m_Layer: 5
-  m_Name: screw3
+  m_Name: screw2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

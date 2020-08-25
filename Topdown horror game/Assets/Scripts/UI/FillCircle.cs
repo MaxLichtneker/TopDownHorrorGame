@@ -19,6 +19,7 @@ public class FillCircle : MonoBehaviour
     private float value = 0.0f;
 
     private int amountOfTurns = 4;
+    private int stringNumbers = 0;
 
     private void Start()
     {
@@ -67,6 +68,7 @@ public class FillCircle : MonoBehaviour
             if(screwStack != null)
             {
                 screwStack.Pop().SetActive(true);
+                stringNumbers = screwStack.Count;
                 amountOfTurns--;
                 fillImage.fillAmount = 0.0f;
                 value = 0.0f;
@@ -77,22 +79,12 @@ public class FillCircle : MonoBehaviour
     //turns the screw that is active
     private void TurnScrew()
     {
-
-        if (screwStack.Count == 4)
-        { 
-            screws[0].transform.Rotate(0, 0, -120 * Time.deltaTime);
-        }
-        if(screwStack.Count == 3)
+        for (int i = 0; i < screws.Length; i++)
         {
-            screws[3].transform.Rotate(0, 0, -120 * Time.deltaTime);
-        }
-        if(screwStack.Count == 2)
-        {
-            screws[2].transform.Rotate(0, 0, -120 * Time.deltaTime);
-        }
-        if (screwStack.Count == 1)
-        {
-            screws[1].transform.Rotate(0, 0, -120 * Time.deltaTime);
+            if(screws[i].name == "screw"+ stringNumbers.ToString())
+            {
+                screws[i].transform.Rotate(0, 0, -120 * Time.deltaTime);
+            }
         }
     }
 
