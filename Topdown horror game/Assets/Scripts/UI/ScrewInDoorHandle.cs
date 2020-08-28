@@ -42,6 +42,7 @@ public class ScrewInDoorHandle : MonoBehaviour
                 if(inventory.names[i] == "doorHandel")
                 {
                     doorHandle.SetActive(true);
+                    inventory.DeleteItem("doorHandel");
                     handleState = HandleState.handleOn;
 
                 }
